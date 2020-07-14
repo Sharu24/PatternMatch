@@ -21,7 +21,6 @@
     </div>
 
     <script>
-      console.log("hello");
       let clrArr = ["red", "blue", "green", "yellow"];
       let sysArr = [];
       let lp = 0,
@@ -30,29 +29,21 @@
 
       let btn = document.querySelector("button");
       let output = document.querySelector("h2");
-
       let userClr = document.querySelectorAll(".clr");
 
-      console.log(userClr);
-
       btn.addEventListener("click", () => {
-        console.log("Button clicked");
         handleBtnClick();
       });
 
       userClr.forEach(clr => {
-        // console.log(clr);
         clr.addEventListener("click", () => {
-          console.log("Color CLicked");
           handleClrClick(clr);
         });
       });
 
       // Handle Button Click
       function handleBtnClick() {
-        sysArr = [];
-        lp = 0;
-        rd = 0;
+        gameReset();
         genNextClr();
       }
 
@@ -62,7 +53,6 @@
         output.textContent = "Round " + rd;
         let num = genRandomNum();
         sysArr.push(num);
-        console.log(sysArr);
         displayClr();
       }
 
@@ -71,10 +61,8 @@
       }
 
       function displayClr() {
-        console.log("id = ", idx, "sysArr len = ", sysArr.length);
         if (idx < sysArr.length) {
           let ele = document.querySelector("." + clrArr[sysArr[idx]]);
-          console.log("my ele - ", ele);
           setTimeout(() => {
             ele.classList.add("flash-color");
           }, 50);
@@ -88,23 +76,22 @@
 
       // Handle User Color CLick
       function handleClrClick(clr) {
-        console.log(clr);
-        console.log(clr.classList[1]);
-
         if (clr.classList[1] === clrArr[sysArr[lp]]) {
-          console.log("hellow");
           lp++;
-          console.log(lp, sysArr.length);
           if (lp === sysArr.length) {
             lp = 0;
             genNextClr();
           }
         } else {
-          rd = 0;
-          lp = 0;
-          sysArr = [];
           output.textContent = "You Lost ! Click on Start to restart";
+          gameReset();
         }
+      }
+
+      function gameReset() {
+        sysArr = [];
+        lp = 0;
+        rd = 0;
       }
     </script>
   </body>
